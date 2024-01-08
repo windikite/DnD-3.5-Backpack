@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+    <%- include("./partials/header.ejs") %>
+    <%- include("./partials/navbar.ejs") %>
+    <body>
+        <h1>Update Item</h1>
+        <a href="/items/<%=results.id%>">Stop Editing</a>
+        <!-- <h3>Name: <%= results.Name %></h3>
+        <p>Type: <%= results.Type %></p>
+        <p>Slot: <%= results.Slot %></p>
+        <p>Price: <%= results.Price %></p>
+        <p>Source: <%= results.Source %></p> -->
+        <form action="/api/items/update-item/<%=results.id%>?_method=PUT" method="post">
+            <label for="Name">Name</label>
+            <input type="text" id="Name" name="Name" placeholder="<%=results.Name%>" value="<%=results.Name%>">
+            <br><br>
+            <label for="Type">Type</label>
+            <input type="text" id="Type" name="Type" placeholder="<%=results.Type%>" value="<%=results.Type%>">
+            <br><br>
+            <label for="Slot">Slot</label>
+            <input type="text" id="Slot" name="Slot" placeholder="<%=results.Slot%>" value="<%=results.Slot%>">
+            <br><br>
+            <label for="Price">Price</label>
+            <input type="text" id="Price" name="Price" placeholder="<%=results.Price%>" value="<%=results.Price%>">
+            <br><br>
+            <label for="Source">Source</label>
+            <input type="text" id="Source" name="Source" placeholder="<%=results.Source%>" value="<%=results.Source%>">
+            <br><br>
+            <label for="Weight">Weight</label>
+            <input type="text" id="Weight" name="Weight" placeholder="<%=results.Weight%>" value="<%=results.Weight%>">
+            <br><br>
+            <label for="Level">Item Level</label>
+            <input type="text" id="Level" name="Level" placeholder="<%=results.Level%>" value="<%=results.Level%>">
+            <br><br>
+            <label for="CasterLevel">Caster Level</label>
+            <input type="text" id="CasterLevel" name="CasterLevel" placeholder="<%=results.CasterLevel%>" value="<%=results.CasterLevel%>">
+            <br><br>
+            <label for="Aura">Aura</label>
+            <input type="text" id="Aura" name="Aura" placeholder="<%=results.Aura%>" value="<%=results.Aura%>">
+            <br><br>
+            <label for="Activation">Activation</label>
+            <input type="text" id="Activation" name="Activation" placeholder="<%=results.Activation%>" value="<%=results.Activation%>">
+            <br><br>
+            <input type="submit" name="_method" value="Update Item">
+        </form>
+    </body>
+</html>

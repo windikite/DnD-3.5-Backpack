@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+    <%- include("./partials/header.ejs") %>
+    <%- include("./partials/navbar.ejs") %>
+    <body>
+        <h1>List of Shops</h1>
+        <br>
+        <table>
+            <th>Shop Name</th>
+            <th>Type</th>
+            <th>Location</th>
+            <th>Current Cash</th>
+            <th>Max Item Value</th>
+            <th>Max Level</th>
+            <th>Max Weight</th>
+            <th>Current Weight</th>
+            <th>Can Identify</th>
+            <th>DC</th>
+            <% results.forEach((item) => { %>
+                <tr>
+                    <td><a href="/shops/<%=item.id%>"> <%= item.Name %> </a></td>
+                    <td><%= item.Type %></td>
+                    <td><%= item.Location %></td>
+                    <td><%= item.CurrentCash %></td>
+                    <td><%= item.MaxItemValue %></td>
+                    <td><%= item.MaxLevel ? item.MaxLevel : `-` %></td>
+                    <td><%= item.MaxWeight ? item.MaxWeight : `-` %></td>
+                    <td><%= item.CurrentWeight ? item.CurrentWeight : `-` %></td>
+                    <td><%= item.CanIdentify ? item.CanIdentify : `-` %></td>
+                    <td><%= item.DC ? item.DC : `-` %></td>
+                </tr>
+            <% }) %>
+        </table>
+        <a href="/create-shop">Create Shop</a>
+    </body>
+</html>

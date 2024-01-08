@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+    <%- include("./partials/header.ejs") %>
+    <%- include("./partials/navbar.ejs") %>
+    <body>
+        <a href="/items">All Items</a>
+        <h1>Item Information</h1>
+        <h3>Name: <%= results.Name %></h3>
+        <p>Type: <%= results.Type %></p>
+        <p>Slot: <%= results.Slot %></p>
+        <p>Price: <%= results.Price %></p>
+        <p>Source: <%= results.Source %></p>
+        <p>Weight: <%= results.Weight %></p>
+        <p>Item Level: <%= results.Level ? results.Level : `-` %></p>
+        <p>Caster Level: <%= results.CasterLevel ? results.CasterLevel : `-` %></p>
+        <p>Aura: <%= results.Aura ? results.Aura : `-` %></p>
+        <p>Activation: <%= results.Activation ? results.Activation : `-` %></p>
+        <a href="/update-item/<%=results.id%>">Update Item</a>
+    </body>
+</html>

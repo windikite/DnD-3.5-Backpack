@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+    <%- include("./partials/header.ejs") %>
+    <%- include("./partials/navbar.ejs") %>
+    <body>
+        <a href="/shops">All Shops</a>
+        <div>
+            <h1>Shop Information</h1>
+            <h3>Name: <%= results.Name %></h3>
+            <p>Type: <%= results.Type %></p>
+            <p>Location: <%= results.Location %></p>
+            <p>CurrentCash: <%= results.CurrentCash %></p>
+            <p>MaxItemValue: <%= results.MaxItemValue %></p>
+            <p>MaxLevel: <%= results.MaxLevel %></p>
+            <p>MaxWeight: <%= results.MaxWeight %></p>
+            <p>CanIdentify: <%= results.CanIdentify ? results.CanIdentify : `-` %></p>
+            <p>DC: <%= results.DC ? results.DC : `-` %></p>
+        </div>
+        
+        <h1>List of items</h1>
+        <br>
+        <table>
+            <th>Item Name</th>
+            <th>Type</th>
+            <th>Slot</th>
+            <th>Source</th>
+            <th>Price</th>
+            <th>Weight</th>
+            <th>Item Level</th>
+            <th>Caster Level</th>
+            <th>Aura</th>
+            <th>Activation</th>
+            <% stock.forEach((item) => { %>
+                <tr>
+                    <td><a href="/items/<%=item.id%>"> <%= item.Name %> </a></td>
+                    <td><%= item.Type %></td>
+                    <td><%= item.Slot %></td>
+                    <td><%= item.Source %></td>
+                    <td><%= item.Price %></td>
+                    <td><%= item.Weight ? item.Weight : `-` %></td>
+                    <td><%= item.Level ? item.Level : `-` %></td>
+                    <td><%= item.CasterLevel ? item.CasterLevel : `-` %></td>
+                    <td><%= item.Aura ? item.Aura : `-` %></td>
+                    <td><%= item.Activation ? item.Activation : `-` %></td>
+                </tr>
+            <% }) %>
+        </table>
+        <a href="/update-shop/<%=results.id%>">Update Shop</a>
+    </body>
+</html>
