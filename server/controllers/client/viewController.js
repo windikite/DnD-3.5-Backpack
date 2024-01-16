@@ -8,7 +8,8 @@ function renderHomePage(req, res){
 async function renderItems(req, res){
     try{
         let result = await Item.find({});
-        res.render(`items`, {results: result})
+        let shops = await Shop.find({});
+        res.render(`items`, {results: result, shops: shops})
     }catch(error){
         let errorObj = {
             message: `failed to render items`,
@@ -21,6 +22,7 @@ async function renderItems(req, res){
 
 async function renderItem(req, res){
     try{
+        console.log(`attempting to render item page`)
         let result = await Item.findOne({_id: req.params.id});
         res.render(`item`, {results: result})
     }catch(error){
@@ -62,6 +64,7 @@ async function renderCreateItem(req, res){
 //shops
 async function renderShops(req, res){
     try{
+        console.log(`attempting to render shops`)
         let result = await Shop.find({});
         res.render(`shops`, {results: result})
     }catch(error){
@@ -76,16 +79,22 @@ async function renderShops(req, res){
 
 async function renderShop(req, res){
     try{
+        console.log(`attempting to render shop page`)
         let result = await Shop.findOne({_id: req.params.id});
         let stockArray = [];
-        console.log(result.items)
-        result.items.forEach(async (id) => {
-            let itemLookup = await Item.findOne({_id: id});
-            stockArray.push(itemLookup);
-            if(stockArray.length === result.items.length){
-                res.render(`shop`, {results: result, stock: stockArray})
-            }
-        })
+        console.log(`items`, result.items)
+        if(result.items.length >= 1){
+            result.items.forEach(async (id) => {
+                let itemLookup = await Item.findOne({_id: id});
+                stockArray.push(itemLookup);
+                if(stockArray.length >= result.items.length){
+                    res.render(`shop`, {results: result, stock: stockArray})
+                }
+            })
+        }else{
+            res.render(`shop`, {results: result, stock: stockArray})
+        }
+        
         
         
     }catch(error){

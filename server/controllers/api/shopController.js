@@ -70,10 +70,16 @@ async function getShop(req, res){
 //     }
 // }
 
+// async function addToShop(req, res){
+//     try{
+//         let foundShop = await Shop.find({_id: req.params.id});
+
+//     }
+// }
 async function updateShop(req, res){
     try{
-        let results = await Shop.find({_id: req.params.id});
-
+        let results = await Shop.findOne({_id: req.params.id});
+        // console.log(`log`, req.body.ItemArray)
         let updatedShop = {
             Name: req.body.Name ? req.body.Name : results.Name,
             Type: req.body.Type ? req.body.Type : results.Type,
@@ -84,8 +90,10 @@ async function updateShop(req, res){
             MaxWeight: req.body.MaxWeight ? req.body.MaxWeight : results.MaxWeight,
             CanIdentify: req.body.CanIdentify ? req.body.CanIdentify : results.CanIdentify,
             DC: req.body.DC ? req.body.DC : results.DC,
+            items: req.body.ItemArray ? (results.items ? (results.items.concat(req.body.ItemArray.split(`,`))) : req.body.ItemArray) : results.items
         }
-
+        console.log(`prev`, results.items)
+        console.log(`updated shop`, updatedShop)
         await Shop.updateOne(
             {_id: req.params.id},
             {$set: updatedShop},
