@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+    <%- include("../partials/head.ejs") %>
+<body>
+    <%- include("../partials/header.ejs") %>
+    <!-- sign up form -->
+    <form action="/api/users/createUser" method="post">
+        <div>
+            <label for="username">Username</label>
+            <input name="username" id="username" placeholder="username" type="text">
+        </div>
+        <div>
+            <label for="password">Password</label>
+            <input name="password" id="password" placeholder="password" type="text">
+        </div>
+        <button type="submit">Sign Up</button>
+    </form>
+</body>
+</html>

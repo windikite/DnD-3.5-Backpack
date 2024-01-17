@@ -1,5 +1,6 @@
 const Item = require(`../../models/itemModel`);
 const Shop = require(`../../models/shopModel`);
+const User = require(`../../models/userModel`);
 
 function renderHomePage(req, res){
     res.render(`home`);
@@ -9,7 +10,7 @@ async function renderItems(req, res){
     try{
         let result = await Item.find({});
         let shops = await Shop.find({});
-        res.render(`items`, {results: result, shops: shops})
+        res.render(`item/items`, {results: result, shops: shops})
     }catch(error){
         let errorObj = {
             message: `failed to render items`,
@@ -24,7 +25,7 @@ async function renderItem(req, res){
     try{
         console.log(`attempting to render item page`)
         let result = await Item.findOne({_id: req.params.id});
-        res.render(`item`, {results: result})
+        res.render(`item/item`, {results: result})
     }catch(error){
         let errorObj = {
             message: `failed to render item`,
@@ -38,7 +39,7 @@ async function renderItem(req, res){
 async function renderUpdateItem(req, res){
     try{
         let result = await Item.findOne({_id: req.params.id});
-        res.render(`updateItem`, {results: result})
+        res.render(`item/updateItem`, {results: result})
     }catch(error){
         let errorObj = {
             message: `failed to render update item page`,
@@ -51,7 +52,7 @@ async function renderUpdateItem(req, res){
 
 async function renderCreateItem(req, res){
     try{
-        res.render(`createItem`)
+        res.render(`item/createItem`)
     }catch(error){
         let errorObj = {
             message: `failed to render create item page`,
@@ -66,7 +67,7 @@ async function renderShops(req, res){
     try{
         console.log(`attempting to render shops`)
         let result = await Shop.find({});
-        res.render(`shops`, {results: result})
+        res.render(`shop/shops`, {results: result})
     }catch(error){
         let errorObj = {
             message: `failed to render shops`,
@@ -88,15 +89,12 @@ async function renderShop(req, res){
                 let itemLookup = await Item.findOne({_id: id});
                 stockArray.push(itemLookup);
                 if(stockArray.length >= result.items.length){
-                    res.render(`shop`, {results: result, stock: stockArray})
+                    res.render(`shop/shop`, {results: result, stock: stockArray})
                 }
             })
         }else{
-            res.render(`shop`, {results: result, stock: stockArray})
+            res.render(`shop/shop`, {results: result, stock: stockArray})
         }
-        
-        
-        
     }catch(error){
         let errorObj = {
             message: `failed to render shop`,
@@ -109,7 +107,7 @@ async function renderShop(req, res){
 
 async function renderCreateShop(req, res){
     try{
-        res.render(`createShop`)
+        res.render(`shop/createShop`)
     }catch(error){
         let errorObj = {
             message: `failed to render create shop page`,
@@ -123,7 +121,7 @@ async function renderCreateShop(req, res){
 async function renderUpdateShop(req, res){
     try{
         let result = await Shop.findOne({_id: req.params.id});
-        res.render(`updateShop`, {results: result})
+        res.render(`shop/updateShop`, {results: result})
     }catch(error){
         let errorObj = {
             message: `failed to render update shop page`,
@@ -134,6 +132,74 @@ async function renderUpdateShop(req, res){
     }
 }
 
+async function renderSignUpForm(req, res){
+    try{
+        res.render(`user/signUp`);
+    }catch(error){
+        console.log(`failed to render sign up form: ${error}`);
+    };
+}
+
+async function renderLogInForm(req, res){
+    try{
+        res.render(`user/logIn`);
+    }catch(error){
+        console.log(`failed to render log in form: ${error}`);
+    };
+}
+
+async function renderUser(req, res){
+    try{
+        if(req.session.isAuth){
+            //try to find user
+            let currentUser = await User.findOne({
+                _id: req.session.user.id
+            });
+
+            //find users' characters
+            let characterList = []
+
+            for(let i = 0; i < currentUser.characters.length; i++){
+                let oneCharacter = await Item.findOne({_id: currentUser.characters[i]});
+
+                characterList.push(oneCharacter.Name);
+            }
+
+            //find users' shops
+            let shopList = []
+
+            for(let i = 0; i < currentUser.shops.length; i++){
+                let oneshop = await Shop.findOne({_id: currentUser.shops[i]});
+
+                shopList.push(oneshop.Name);
+            }
+
+            //find users' favorite items
+            let itemFavoritesList = []
+
+            for(let i = 0; i < currentUser.itemFavorites.length; i++){
+                let oneitemFavorites = await Item.findOne({_id: currentUser.itemFavorites[i]});
+
+                itemFavoritesList.push(oneitemFavorites.Name);
+            }
+            res.render(`user/user`, {
+                user: currentUser, 
+                characters: characterList, 
+                shops: shopList, 
+                items: itemFavoritesList})
+        }else{
+            res.redirect(`/user/logIn`)
+        }
+    }catch(error){
+        let errorObj = {
+            message: `failed to render user`,
+            payload: error
+        }
+        console.log(errorObj)
+        res.json(errorObj)
+    }
+};
+
 module.exports = {
     renderHomePage,
     renderItems,
@@ -143,5 +209,8 @@ module.exports = {
     renderShops,
     renderShop,
     renderUpdateShop,
-    renderCreateShop
+    renderCreateShop,
+    renderSignUpForm,
+    renderLogInForm,
+    renderUser
 }

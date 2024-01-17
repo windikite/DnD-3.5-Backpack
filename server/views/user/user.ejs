@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+    <%- include("../partials/head.ejs") %>
+<body>
+    <%- include("../partials/header.ejs") %>
+    <ul>
+        <h1><%=user.username%>'s Characters</h1>
+        <% if(characters > 1){ %>
+            <% characters.forEach(character => { %>
+                <li>
+                    <a href="/characters/<%=character%>"><%=character%></a>
+                </li>
+            <% }) %>
+        <% }else{ %>
+            <p>Create a character!</p>
+        <% } %>
+    </ul>
+    <ul>
+        <h1><%=user.username%>'s Shops</h1>
+        <% if(shops > 1){ %>
+            <% shops.forEach(shop => { %>
+                <li>
+                    <a href="/shops/<%=shop%>"><%=shop%></a>
+                </li>
+            <% }) %>
+        <% }else{ %>
+            <p>Create a shop!</p>
+        <% } %>
+    </ul>
+    <ul>
+        <h1><%=user.username%>'s Favorite Items</h1>
+        <% if(items > 1){ %>
+            <% items.forEach(item => { %>
+                <li>
+                    <a href="/items/<%=item%>"><%=item%></a>
+                </li>
+            <% }) %>
+        <% }else{ %>
+            <p>Favorite some items!</p>
+        <% } %>
+    </ul>
+</body>
+</html>

@@ -1,0 +1,12 @@
+<!DOCTYPE html>
+<html lang="en">
+    <%- include("../partials/head.ejs") %>
+<body>
+    <%- include("../partials/header.ejs") %>
+    <!-- sign up form -->
+    <form action="/api/users/logIn" method="post">
+        <%- include("../partials/userPass.ejs") %>
+        <button type="submit">Log In</button>
+    </form>
+</body>
+</html>

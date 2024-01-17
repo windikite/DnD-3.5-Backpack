@@ -9,7 +9,10 @@ const {
     renderShops,
     renderShop,
     renderUpdateShop, 
-    renderCreateShop
+    renderCreateShop,
+    renderLogInForm,
+    renderSignUpForm,
+    renderUser
 } = require(`../../controllers/client/viewController`);
 //utility
 router.get(`/`, renderHomePage);
@@ -23,5 +26,9 @@ router.get(`/shops`, renderShops);
 router.get(`/shops/:id`, renderShop);
 router.get(`/update-shop/:id`, renderUpdateShop)
 router.get(`/create-shop`, renderCreateShop)
+//users
+router.get(`/signUp`, renderSignUpForm);
+router.get(`/logIn`, renderLogInForm);
+router.get(`/users/user`, renderUser)
 
 module.exports = router;
