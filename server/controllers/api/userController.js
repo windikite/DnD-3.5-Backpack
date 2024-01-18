@@ -169,11 +169,63 @@ async function logInUser(req, res){
     }
 }
 
+async function logOutUser(req, res){
+    try{
+        //clear cookie from browser
+        res.clearCookie(`connect.sid`, {
+            path: `/`,
+            httpOnly: true,
+            secure: false,
+            maxAge: null
+        })
+
+        //clear the session from the server
+        req.session.destroy();
+
+        //send the client to the home page
+        res.redirect(`/`);
+    }catch(error){
+        console.log(`failed to log out user: ${error}`)
+    }
+}
+
+async function addItemToFavorites(req, res){
+    try{
+        //get id of user
+        let userId = req.session.user.id;
+
+        //find user currently logged in
+        let currentUser = await User.findById({_id: userId});
+
+        //add item's ID to the itemFavorites list
+        currentUser.itemFavorites.push(req.body.itemId);
+
+        //generate a clean object to change only the necessary proerpties on the user document
+        let newUserObj = {
+            itemFavorites: currentUser.itemFavorites
+        }
+
+        //update the user document with the new itemFavorites
+        await User.updateOne(
+            {_id: userId},
+            {$set: newUserObj},
+            {upsert: true}
+        )
+
+        res.redirect(`/items/${req.body.itemId}`);
+
+    }catch(error){
+        console.log(`failed to add item to favorites: ${error}`)
+    }
+}
+
 module.exports = {
     getAllUsers,
     getUser,
     createUser, 
     deleteUser,
     updateUser,
-    logInUser
+    logInUser,
+    logOutUser,
+    addItemToFavorites
 }

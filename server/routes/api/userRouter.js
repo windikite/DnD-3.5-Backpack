@@ -6,7 +6,9 @@ const {
     createUser,
     deleteUser,
     updateUser,
-    logInUser
+    logInUser,
+    logOutUser,
+    addItemToFavorites
 } = require('../../controllers/api/userController');
 
 // localhost:8080/api/users/allUsers
@@ -21,5 +23,9 @@ router.delete('/deleteUser/:params', deleteUser);
 router.put('/updateUser/:params', updateUser);
 //localhost:8080/api/users/logInUser
 router.post(`/logIn`, logInUser);
+//localhost:8080/api/users/logOutUser
+router.get(`/logOut`, logOutUser);
+//localhost:8080/api/users/addItemToFavorites
+router.put(`/addItemToFavorites`, addItemToFavorites);
 
 module.exports = router;

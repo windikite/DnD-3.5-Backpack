@@ -23,9 +23,17 @@ async function renderItems(req, res){
 
 async function renderItem(req, res){
     try{
-        console.log(`attempting to render item page`)
-        let result = await Item.findOne({_id: req.params.id});
-        res.render(`item/item`, {results: result})
+        let item = await Item.findOne({_id: req.params.id});
+        let userFaves
+        if(req.session.isAuth){
+            let currentUser = await User.findOne({
+                username: req.session.user.username
+            })
+            userFaves = currentUser.itemFavorites
+        }else{
+            userFaves = []
+        }
+        res.render(`item/item`, {item: item, userFaves: userFaves})
     }catch(error){
         let errorObj = {
             message: `failed to render item`,
@@ -62,10 +70,9 @@ async function renderCreateItem(req, res){
         res.json(errorObj)
     }
 }
-//shops
+
 async function renderShops(req, res){
     try{
-        console.log(`attempting to render shops`)
         let result = await Shop.find({});
         res.render(`shop/shops`, {results: result})
     }catch(error){
@@ -180,8 +187,9 @@ async function renderUser(req, res){
             for(let i = 0; i < currentUser.itemFavorites.length; i++){
                 let oneitemFavorites = await Item.findOne({_id: currentUser.itemFavorites[i]});
 
-                itemFavoritesList.push(oneitemFavorites.Name);
+                itemFavoritesList.push(oneitemFavorites);
             }
+            console.log(itemFavoritesList)
             res.render(`user/user`, {
                 user: currentUser, 
                 characters: characterList, 

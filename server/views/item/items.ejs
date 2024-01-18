@@ -18,7 +18,6 @@
             <th>Activation</th>
             <% results.forEach((item) => { %>
                 <tr>
-                    <td><input type="checkbox" id="<%= item.Name %>" name="item-check" value="<%= item.id %>"></td>
                     <td><a href="/items/<%=item.id%>"> <%= item.Name %> </a></td>
                     <td><%= item.Type %></td>
                     <td><%= item.Slot %></td>
@@ -29,6 +28,7 @@
                     <td><%= item.CasterLevel ? item.CasterLevel : `-` %></td>
                     <td><%= item.Aura ? item.Aura : `-` %></td>
                     <td><%= item.Activation ? item.Activation : `-` %></td>
+                    <td><input type="checkbox" id="<%= item.Name %>" name="item-check" value="<%= item.id %>"></td>
                 </tr>
             <% }) %>
         </table>
