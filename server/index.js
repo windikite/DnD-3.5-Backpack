@@ -5,6 +5,7 @@ const app = express();
 const path = require(`path`);
 const connectToMongoDB = require(`./db/mongodb`);
 const methodOverride = require(`method-override`);
+
 //login session modules
 require(`dotenv`).config();
 const cookieParser = require(`cookie-parser`);
@@ -51,6 +52,8 @@ const shopRouter = require(`./routes/api/shopRouter`);
 app.use(`/api/shops`, shopRouter);
 const userRouter = require(`./routes/api/userRouter`);
 app.use(`/api/users`, userRouter);
+const characterRouter = require(`./routes/api/characterRouter`);
+app.use(`/api/characters`, characterRouter);
 
 //server
 const PORT = 8080;

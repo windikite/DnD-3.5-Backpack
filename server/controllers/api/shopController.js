@@ -1,4 +1,5 @@
 const Shop = require(`../../models/shopModel`);
+const User = require(`../../models/userModel`);
 
 async function getAllShops(req, res){
     try{
@@ -19,8 +20,45 @@ async function getAllShops(req, res){
 
 async function createShop(req, res){
     try{
-        let newShop = await Shop.create(req.body);
-        res.redirect(`/shops/${newShop.id}`)
+        //get id of user
+        let userId = req.session.user.id;
+
+        // Accepting the front-end form data from the client to generate the document
+        let newShop = {
+            Owner: userId,
+            Name: req.body.Name ? req.body.Name : null,
+            Type: req.body.Type ? req.body.Type : null,
+            Location: req.body.Location ? req.body.Location : null,
+            CurrentCash: req.body.CurrentCash ? req.body.CurrentCash : null,
+            MaxItemValue: req.body.MaxItemValue ? req.body.MaxItemValue : null,
+            MaxLevel: req.body.MaxLevel ? req.body.MaxLevel : null,
+            MaxWeight: req.body.MaxWeight ? req.body.MaxWeight : null,
+            CanIdentify: req.body.CanIdentify ? req.body.CanIdentify : null,
+            DC: req.body.DC ? req.body.DC : null,
+            // items: req.body.ItemArray ? (results.items ? (results.items.concat(req.body.ItemArray.split(`,`))) : req.body.ItemArray) : results.items
+        }
+        let shop = await Shop.create(newShop);
+
+        //get user to add shop to list of shops
+        let currentUser = await User.findOne({_id: userId});
+
+        let shopId = shop._id.toString();
+
+        let newshops = currentUser.characters
+
+        newshops.push(shopId)
+
+        let updatedUser = {
+            shops: newshops
+        }
+
+        await User.updateOne(
+            { _id: userId },
+            { $set: updatedUser },
+            { upsert: true }
+        )
+
+        res.redirect(`/shops/${shopId}`)
     }catch(error){
         let errorObj = {
             message: `failed to create Shop`,
@@ -48,34 +86,28 @@ async function getShop(req, res){
     }
 }
 
-// async function deleteShop(req, res) {
-//     try {
-//         await Shop.deleteOne({ _id: req.params.id });
+async function deleteShop(req, res) {
+    try {
+        await Shop.deleteOne({ _id: req.params.id });
 
-//         res.json({
-//             message: "success",
-//             payload: await Shop.find({})
-//         })
+        // res.json({
+        //     message: "success",
+        //     payload: await Shop.find({})
+        // })
 
-//         // res.redirect("/allMons");
-//     } catch (error) {
-//         let errorObj = {
-//             message: "failed to delete Shop",
-//             payload: error
-//         }
+        res.redirect("/shops");
+    } catch (error) {
+        let errorObj = {
+            message: "failed to delete Shop",
+            payload: error
+        }
 
-//         console.log(errorObj);
+        console.log(errorObj);
 
-//         res.json(errorObj);
-//     }
-// }
+        res.json(errorObj);
+    }
+}
 
-// async function addToShop(req, res){
-//     try{
-//         let foundShop = await Shop.find({_id: req.params.id});
-
-//     }
-// }
 async function updateShop(req, res){
     try{
         let results = await Shop.findOne({_id: req.params.id});
@@ -115,6 +147,6 @@ module.exports = {
     getAllShops,
     createShop,
     getShop,
-    // deleteShop,
+    deleteShop,
     updateShop
 }

@@ -1,6 +1,7 @@
 const Item = require(`../../models/itemModel`);
 const Shop = require(`../../models/shopModel`);
 const User = require(`../../models/userModel`);
+const Character = require(`../../models/characterModel`);
 
 function renderHomePage(req, res){
     res.render(`home`);
@@ -167,9 +168,9 @@ async function renderUser(req, res){
             let characterList = []
 
             for(let i = 0; i < currentUser.characters.length; i++){
-                let oneCharacter = await Item.findOne({_id: currentUser.characters[i]});
+                let oneCharacter = await Character.findOne({_id: currentUser.characters[i]});
 
-                characterList.push(oneCharacter.Name);
+                characterList.push(oneCharacter);
             }
 
             //find users' shops
@@ -178,7 +179,7 @@ async function renderUser(req, res){
             for(let i = 0; i < currentUser.shops.length; i++){
                 let oneshop = await Shop.findOne({_id: currentUser.shops[i]});
 
-                shopList.push(oneshop.Name);
+                shopList.push(oneshop);
             }
 
             //find users' favorite items
@@ -189,7 +190,6 @@ async function renderUser(req, res){
 
                 itemFavoritesList.push(oneitemFavorites);
             }
-            console.log(itemFavoritesList)
             res.render(`user/user`, {
                 user: currentUser, 
                 characters: characterList, 

@@ -52,12 +52,12 @@ async function deleteItem(req, res) {
     try {
         await Item.deleteOne({ _id: req.params.id });
 
-        res.json({
-            message: "success",
-            payload: await Item.find({})
-        })
+        // res.json({
+        //     message: "success",
+        //     payload: await Item.find({})
+        // })
 
-        // res.redirect("/allMons");
+        res.redirect("/items");
     } catch (error) {
         let errorObj = {
             message: "failed to delete item",

@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+    <%- include("../partials/head.ejs") %>
+    <body>
+        <%- include("../partials/header.ejs") %>
+        <h1>List of items</h1>
+        <br>
+        <table>
+            <th>Item Name</th>
+            <th>Type</th>
+            <th>Slot</th>
+            <th>Source</th>
+            <th>Price</th>
+            <th>Weight</th>
+            <th>Item Level</th>
+            <th>Caster Level</th>
+            <th>Aura</th>
+            <th>Activation</th>
+            <% results.forEach((item) => { %>
+                <tr>
+                    <td><a href="/items/<%=item.id%>"> <%= item.Name %> </a></td>
+                    <td><%= item.Type %></td>
+                    <td><%= item.Slot %></td>
+                    <td><%= item.Source %></td>
+                    <td><%= item.Price %></td>
+                    <td><%= item.Weight ? item.Weight : `-` %></td>
+                    <td><%= item.Level ? item.Level : `-` %></td>
+                    <td><%= item.CasterLevel ? item.CasterLevel : `-` %></td>
+                    <td><%= item.Aura ? item.Aura : `-` %></td>
+                    <td><%= item.Activation ? item.Activation : `-` %></td>
+                    <td><input type="checkbox" id="<%= item.Name %>" name="item-check" value="<%= item.id %>"></td>
+                </tr>
+            <% }) %>
+        </table>
+        <a href="/create-item">Create Item</a>
+        <form id="add-form" method="POST" action="TEMP">
+            <input type="hidden" id="item-array" name="ItemArray" value="">
+            <select name="shop-select" id="shop-select">
+                <% shops.forEach(s => {%>
+                    <option value="<%= s.id %>"><%= s.Name %></option>
+                <% }) %>
+            </select>
+            <input type='submit' name='Add Items to Shop'>
+        </form>
+        <script>
+            //monitor checked boxes to make an array of items to add
+            let itemArray = [];
+            const hiddenItemArray = document.getElementById(`item-array`);
+            const table = document.querySelector(`table`);
+            table.addEventListener(`change`, e => {
+                if(event.target.type === `checkbox`){
+                    const checkedBoxes = document.querySelectorAll('input[type="checkbox"]:checked');
+                    itemArray = Array.from(checkedBoxes).map(x => x.value);
+                    hiddenItemArray.value = itemArray;
+                    console.log(itemArray, hiddenItemArray, checkedBoxes)
+                }
+            })
+            //monitor dropdown to update form action
+            let form = document.getElementById(`add-form`);
+            const shopSelect = document.getElementById(`shop-select`);
+            shopSelect.addEventListener(`change`, e => form.action = `/api/shops/update-shop/${event.target.value}?_method=PUT`);
+            // //monitor select to generate item table
+            // let shopTable = document.getElementById(`shop-table`);
+            // console.log(shopTable.value)
+            // shopSelect.addEventListener(`change`, e => {
+            //     let foundShop = shopTable.value.find(x => x.id === shopSelect.value);
+            //     foundShop.items.forEach(x => {
+            //         let newRow = document.createElement(`tr`);
+            //         let nameTxt = document.createTextNode(x.Name);
+            //         let nameCol = document.createElement(`td`);
+            //         nameCol.appendChild(nameTxt);
+            //         newRow.appendChild(nameCol);
+            //         shopTable.appendChild(newRow);
+            //     })
+            // })
+        </script>
+    </body>
+</html>

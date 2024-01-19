@@ -5,10 +5,10 @@
     <%- include("../partials/header.ejs") %>
     <ul>
         <h1><%=user.username%>'s Characters</h1>
-        <% if(characters > 1){ %>
+        <% if(characters.length > 0){ %>
             <% characters.forEach(character => { %>
                 <li>
-                    <a href="/characters/<%=character%>"><%=character%></a>
+                    <a href="/characters/<%=character.id%>"><%=character.Name%></a>
                 </li>
             <% }) %>
         <% }else{ %>
@@ -17,10 +17,10 @@
     </ul>
     <ul>
         <h1><%=user.username%>'s Shops</h1>
-        <% if(shops > 1){ %>
+        <% if(shops.length > 0){ %>
             <% shops.forEach(shop => { %>
                 <li>
-                    <a href="/shops/<%=shop%>"><%=shop%></a>
+                    <a href="/shops/<%=shop.id%>"><%=shop.Name%></a>
                 </li>
             <% }) %>
         <% }else{ %>

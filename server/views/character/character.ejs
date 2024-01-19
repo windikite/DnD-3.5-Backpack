@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+    <%- include("../partials/head.ejs") %>
+    <body>
+        <%- include("../partials/header.ejs") %>
+        <h1>Item Information</h1>
+        <h3>Name: <%= item.Name %></h3>
+        <p>Type: <%= item.Type %></p>
+        <p>Slot: <%= item.Slot %></p>
+        <p>Price: <%= item.Price %></p>
+        <p>Source: <%= item.Source %></p>
+        <p>Weight: <%= item.Weight %></p>
+        <p>Item Level: <%= item.Level ? item.Level : `-` %></p>
+        <p>Caster Level: <%= item.CasterLevel ? item.CasterLevel : `-` %></p>
+        <p>Aura: <%= item.Aura ? item.Aura : `-` %></p>
+        <p>Activation: <%= item.Activation ? item.Activation : `-` %></p>
+        <% if(isAuth && !userFaves.includes(item._id)){ %>
+            <form action="/api/users/addItemToFavorites?_method=PUT" method="post">
+                <input type="hidden" name="itemId" value="<%=item.id%>">
+                <input type="submit" name="_method" value="Add item to favorites">
+            </form>
+        <% } else if(isAuth && userFaves.includes(item._id)){ %>
+            <p>Item in favorites!</p>
+        <% } %>
+
+        <a href="/update-item/<%=item.id%>">Update Item</a>
+    </body>
+</html>
