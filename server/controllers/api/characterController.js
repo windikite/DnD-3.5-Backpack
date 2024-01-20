@@ -45,12 +45,13 @@ async function createOneCharacter(req, res){
     try {
         //get id of user
         // let userId = req.session.user.id;
-        let userId = req.body.Owner;
+        let userId = req.session.user.id;
 
         // Accepting the front-end form data from the client to generate the document
         let newCharacter = {
-            Owner: userId,
-            Name: req.body.Name,
+            owner: userId,
+            name: req.body.name ? req.body.name : null,
+
         }
 
         //get user to add character to list of characters
@@ -72,10 +73,7 @@ async function createOneCharacter(req, res){
             { upsert: true }
         )
 
-        res.json({
-            message: 'success',
-            payload: newCharacter
-        });
+        res.redirect(`/characters/${charId}`)
     } catch (error) {
         let errorObj = {
             message: 'failed to create one Character: ',
@@ -114,11 +112,15 @@ async function updateOneCharacter(req, res){
 
         // ternaries avoid inputting undefined values
         let updatedCharacter = {
-            character: req.body.character ? req.body.character : targetCharacter.character,
+            name: req.body.name ? req.body.name : null,
+            class: req.body.class ? req.body.class : null,
+            templates: req.body.templates ? req.body.templates : null,
+            stats: req.body.stats ? req.body.stats : null,
+            items: req.body.items ? req.body.items : null,
         }
 
         await Character.updateOne(
-            { character: req.params.character },
+            { character: req.params.id },
             { $set: updatedCharacter },
             { upsert: true }
         )

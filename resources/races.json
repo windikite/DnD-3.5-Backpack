@@ -1,0 +1,26 @@
+[
+    {
+        "name": "Human",
+        "helpText": "helptext",
+        "levelMod": 0,
+        "source": ["Player Handbook", "12"],
+        "con": 0,
+        "str": 0,
+        "dex": 0,
+        "wis": 0,
+        "int": 0,
+        "cha": 0
+    },
+    {
+        "name": "Elf",
+        "helpText": "+2 Dex / -2 Con / Lowlight Vision",
+        "levelMod": 0,
+        "source": ["Player Handbook", "13"],
+        "con": -2,
+        "str": 0,
+        "dex": 2,
+        "wis": 0,
+        "int": 0,
+        "cha": 0
+    }
+]

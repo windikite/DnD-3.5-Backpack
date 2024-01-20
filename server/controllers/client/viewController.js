@@ -2,6 +2,8 @@ const Item = require(`../../models/itemModel`);
 const Shop = require(`../../models/shopModel`);
 const User = require(`../../models/userModel`);
 const Character = require(`../../models/characterModel`);
+const Class = require(`../../models/classModel`);
+const Race = require(`../../models/raceModel`);
 
 function renderHomePage(req, res){
     res.render(`home`);
@@ -172,6 +174,7 @@ async function renderUser(req, res){
 
                 characterList.push(oneCharacter);
             }
+            console.log(characterList)
 
             //find users' shops
             let shopList = []
@@ -208,6 +211,46 @@ async function renderUser(req, res){
     }
 };
 
+async function renderCharacter(req, res){
+    try{
+        let result = await Character.findOne({_id: req.params.id});
+        let itemList = [];
+
+        for(let i = 0; i < result.items.length; i++){
+            let itemLookup = await Item.findOne({_id: result.items[i]});
+
+            itemList.push(itemLookup);
+        }
+
+        res.render(`character/character`, {character: result, items: itemList})
+    }catch(error){
+        console.log(error)
+        let errorObj = {
+            message: `failed to render character`,
+            payload: error
+        }
+        res.json(errorObj)
+    }
+}
+
+async function renderCharacterCreator(req, res){
+    try{
+        //get library of resources for character creation
+        let classes = await Class.find({});
+        let races = await Race.find({});
+
+        //respond with page and resources
+        res.render(`character/characterCreator`, {classes: classes, races: races})
+    }catch(error){
+        let errorObj = {
+            message: `failed to render character creator`,
+            payload: error
+        }
+        console.log(errorObj)
+        res.json(errorObj)
+    }
+}
+
 module.exports = {
     renderHomePage,
     renderItems,
@@ -220,5 +263,7 @@ module.exports = {
     renderCreateShop,
     renderSignUpForm,
     renderLogInForm,
-    renderUser
+    renderUser,
+    renderCharacter,
+    renderCharacterCreator
 }

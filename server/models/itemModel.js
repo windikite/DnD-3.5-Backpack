@@ -2,40 +2,40 @@ const mongoose = require(`mongoose`);
 
 const itemSchema = new mongoose.Schema(
     {
-        Name:{
+        name:{
             type: String,
             unique: true,
             required: true
         },
-        Type:{
+        type:{
             type: String,
             required: true
         },
-        Slot:{
+        slot:{
             type: String,
             required: true
         },
-        Price:{
+        price:{
             type: Number,
             required: true
         },
-        Source:{
+        source:{
             type: String,
             required: true
         },
-        ItemLevel:{
+        itemLevel:{
             type: Number
         },
-        CasterLevel:{
+        casterLevel:{
             type: Number
         },
-        Aura:{
+        aura:{
             type: String
         },
-        Activation:{
+        activation:{
             type: String
         },
-        Weight:{
+        weight:{
             type: Number,
             required: true
         },

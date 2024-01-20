@@ -3,43 +3,43 @@ const ObjectId = mongoose.Schema.Types.ObjectId;
 
 const shopSchema = new mongoose.Schema(
     {
-        Name:{
+        name:{
             type: String,
             unique: true,
             required: true
         },
-        Type:{
+        type:{
             type: String,
             required: true
         },
-        Location:{
+        location:{
             type: String,
             required: true
         },
-        CurrentCash:{
+        currentCash:{
             type: Number,
             required: true
         },
-        MaxItemValue:{
+        maxItemValue:{
             type: Number,
             required: true
         },
-        MaxLevel:{
+        maxLevel:{
             type: Number,
             required: true
         },
-        MaxWeight:{
+        maxWeight:{
             type: Number,
             required: true
         },
-        CurrentWeight:{
+        currentWeight:{
             type: Number
         },
-        CanIdentify:{
+        canIdentify:{
             type: Boolean,
             required: true
         },
-        DC:{
+        dc:{
             type: Number,
             required: true
         },

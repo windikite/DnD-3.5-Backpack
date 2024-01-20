@@ -25,16 +25,16 @@ async function createShop(req, res){
 
         // Accepting the front-end form data from the client to generate the document
         let newShop = {
-            Owner: userId,
-            Name: req.body.Name ? req.body.Name : null,
-            Type: req.body.Type ? req.body.Type : null,
-            Location: req.body.Location ? req.body.Location : null,
-            CurrentCash: req.body.CurrentCash ? req.body.CurrentCash : null,
-            MaxItemValue: req.body.MaxItemValue ? req.body.MaxItemValue : null,
-            MaxLevel: req.body.MaxLevel ? req.body.MaxLevel : null,
-            MaxWeight: req.body.MaxWeight ? req.body.MaxWeight : null,
-            CanIdentify: req.body.CanIdentify ? req.body.CanIdentify : null,
-            DC: req.body.DC ? req.body.DC : null,
+            owner: userId,
+            name: req.body.name ? req.body.name : null,
+            type: req.body.type ? req.body.type : null,
+            location: req.body.location ? req.body.location : null,
+            currentCash: req.body.currentCash ? req.body.currentCash : null,
+            maxItemValue: req.body.maxItemValue ? req.body.maxItemValue : null,
+            maxLevel: req.body.maxLevel ? req.body.maxLevel : null,
+            maxWeight: req.body.maxWeight ? req.body.maxWeight : null,
+            canIdentify: req.body.canIdentify ? req.body.canIdentify : null,
+            dc: req.body.dc ? req.body.dc : null,
             // items: req.body.ItemArray ? (results.items ? (results.items.concat(req.body.ItemArray.split(`,`))) : req.body.ItemArray) : results.items
         }
         let shop = await Shop.create(newShop);
@@ -113,15 +113,15 @@ async function updateShop(req, res){
         let results = await Shop.findOne({_id: req.params.id});
         // console.log(`log`, req.body.ItemArray)
         let updatedShop = {
-            Name: req.body.Name ? req.body.Name : results.Name,
-            Type: req.body.Type ? req.body.Type : results.Type,
-            Location: req.body.Location ? req.body.Location : results.Location,
-            CurrentCash: req.body.CurrentCash ? req.body.CurrentCash : results.CurrentCash,
-            MaxItemValue: req.body.MaxItemValue ? req.body.MaxItemValue : results.MaxItemValue,
-            MaxLevel: req.body.MaxLevel ? req.body.MaxLevel : results.MaxLevel,
-            MaxWeight: req.body.MaxWeight ? req.body.MaxWeight : results.MaxWeight,
-            CanIdentify: req.body.CanIdentify ? req.body.CanIdentify : results.CanIdentify,
-            DC: req.body.DC ? req.body.DC : results.DC,
+            name: req.body.name ? req.body.name : results.name,
+            type: req.body.type ? req.body.type : results.type,
+            location: req.body.location ? req.body.location : results.location,
+            currentCash: req.body.currentCash ? req.body.currentCash : results.currentCash,
+            maxItemValue: req.body.maxItemValue ? req.body.maxItemValue : results.maxItemValue,
+            maxLevel: req.body.maxLevel ? req.body.maxLevel : results.maxLevel,
+            maxWeight: req.body.maxWeight ? req.body.maxWeight : results.maxWeight,
+            canIdentify: req.body.canIdentify ? req.body.canIdentify : results.canIdentify,
+            dc: req.body.dc ? req.body.dc : results.dc,
             items: req.body.ItemArray ? (results.items ? (results.items.concat(req.body.ItemArray.split(`,`))) : req.body.ItemArray) : results.items
         }
         console.log(`prev`, results.items)

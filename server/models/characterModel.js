@@ -3,33 +3,33 @@ const ObjectId = mongoose.Schema.Types.ObjectId;
 
 const characterSchema = new mongoose.Schema(
     {
-        Owner: {
+        owner: {
             type: ObjectId,
             required: true
         },
-        Name: {
+        name: {
             type: String,
             required: true
         },
-        Class: {
+        class: {
             type: [{
                 type: ObjectId,
                 ref: "class",
             }],
         },
-        Race: {
+        race: {
             type: [{
                 type: ObjectId,
                 ref: "race",
             }],
         },
-        Templates: {
+        templates: {
             type: [{
                 type: ObjectId,
                 ref: "items",
             }],
         },
-        Stats: [
+        stats: [
             con = {
                 type: Number
             },
@@ -49,7 +49,7 @@ const characterSchema = new mongoose.Schema(
                 type: Number
             },
         ],
-        Items: {
+        items: {
             type: [{
                 type: ObjectId,
                 ref: "items",
