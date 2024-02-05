@@ -5,6 +5,7 @@ const app = express();
 const path = require(`path`);
 const connectToMongoDB = require(`./db/mongodb`);
 const methodOverride = require(`method-override`);
+const cors = require('cors');
 
 //resolve cors
 const corsOptions = {
