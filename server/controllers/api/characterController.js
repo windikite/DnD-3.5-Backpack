@@ -154,7 +154,7 @@ async function getCharacterOptions(req, res){
         console.log(options);
         res.json({
             message: 'success',
-            payload: updatedCharacter
+            payload: options
         });
     } catch (error) {
         let errorObj = {
