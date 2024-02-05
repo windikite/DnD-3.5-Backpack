@@ -6,6 +6,15 @@ const path = require(`path`);
 const connectToMongoDB = require(`./db/mongodb`);
 const methodOverride = require(`method-override`);
 
+//resolve cors
+const corsOptions = {
+    // The origin set to * is being set to ANY URL
+    origin: "*",
+    optionSuccessStatus: 200
+}
+
+app.use(cors(corsOptions));
+
 //login session modules
 require(`dotenv`).config();
 const cookieParser = require(`cookie-parser`);
