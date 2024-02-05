@@ -5,7 +5,8 @@ const {
     getOneCharacter,
     createOneCharacter,
     deleteOneCharacter,
-    updateOneCharacter
+    updateOneCharacter,
+    getCharacterOptions
 } = require('../../controllers/api/characterController');
 
 // localhost:8080/api/characters/allCharacter
@@ -22,5 +23,7 @@ router.delete('/deleteCharacter/:params', deleteOneCharacter);
 
 // localhost:8080/api/characters/updateOneCharacter/:params
 router.put('/updateCharacter/:params', updateOneCharacter);
+
+router.get(`/options`, getCharacterOptions);
 
 module.exports = router;

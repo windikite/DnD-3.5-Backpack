@@ -1,5 +1,7 @@
 const Character = require('../../models/characterModel');
 const User = require(`../../models/userModel`)
+const Races = require(`../../models/raceModel`);
+const Classes = require(`../../models/classModel`);
 
 async function getAllCharacters (req, res) {
     try {
@@ -141,10 +143,36 @@ async function updateOneCharacter(req, res){
     }
 }
 
+async function getCharacterOptions(req, res){
+    try {
+        let classes = await Classes.find();
+        let races = await Races.find();
+
+        let options = [];
+
+        options.push(classes, races);
+        console.log(options);
+        res.json({
+            message: 'success',
+            payload: updatedCharacter
+        });
+    } catch (error) {
+        let errorObj = {
+            message: 'failed to get character options: ',
+            payload: error
+        }
+
+        console.log(errorObj);
+
+        res.json(errorObj);
+    }
+}
+
 module.exports = {
     getAllCharacters,
     getOneCharacter,
     createOneCharacter, 
     deleteOneCharacter,
-    updateOneCharacter
+    updateOneCharacter,
+    getCharacterOptions
 }
