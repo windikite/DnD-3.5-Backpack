@@ -1,26 +1,98 @@
 [
     {
         "name": "Human",
-        "helpText": "helptext",
+        "helpText": "help text",
         "levelMod": 0,
-        "source": ["Player Handbook", "12"],
-        "con": 0,
-        "str": 0,
-        "dex": 0,
-        "wis": 0,
-        "int": 0,
-        "cha": 0
+        "size": "medium",
+        "speed": 30,
+        "source": {
+            "book": "Player Handbook",
+            "page": 12
+        },
+        "skillPointModifier": 4,
+        "statBonuses": {
+            "con": 0,
+            "str": 0,
+            "dex": 0,
+            "wis": 0,
+            "int": 0,
+            "cha": 0
+        },
+        "features": {
+            "lv1": [
+                {
+                    "name": "Quick to Learn",
+                    "text": "Gain 4 extra skill points at first level, and 1 per level afterwards."
+                },
+                {
+                    "name": "Extra feat",
+                    "text": "Gain an extra feat at first level."
+                }
+            ]
+        }
+    },
+    {
+        "name": "Dwarf",
+        "helpText": "help text",
+        "levelMod": 0,
+        "size": "medium",
+        "speed": 20,
+        "source": {
+            "book": "Player Handbook",
+            "page": 14
+        },
+        "skillPointModifier": 0,
+        "statBonuses": {
+            "con": 2,
+            "str": 0,
+            "dex": 0,
+            "wis": 0,
+            "int": 0,
+            "cha": -2
+        },
+        "features": {
+            "lv1": [
+                {
+                    "name": "Darkvision",
+                    "text": "See in the dark up to 60ft."
+                },
+                {
+                    "name": "Stonecunning",
+                    "text": "+2 Racial bonus on Search Checks."
+                }
+            ]
+        }
     },
     {
         "name": "Elf",
-        "helpText": "+2 Dex / -2 Con / Lowlight Vision",
+        "helpText": "help text",
         "levelMod": 0,
-        "source": ["Player Handbook", "13"],
-        "con": -2,
-        "str": 0,
-        "dex": 2,
-        "wis": 0,
-        "int": 0,
-        "cha": 0
+        "size": "medium",
+        "speed": 30,
+        "source": {
+            "book": "Player Handbook",
+            "page": 15
+        },
+        "skillPointModifier": 0,
+        "statBonuses": {
+            "con": -2,
+            "str": 0,
+            "dex": 2,
+            "wis": 0,
+            "int": 0,
+            "cha": 0
+        },
+        "features": {
+            "lv1": [
+                {
+                    "name": "Low-light vision",
+                    "text": "See up to twice as far as a human in low-light conditions."
+                },
+                {
+                    "name": "Awareness",
+                    "text": "+2 on racial bonus on Listen, Search, and Spot checks."
+                }
+            ]
+        }
     }
 ]

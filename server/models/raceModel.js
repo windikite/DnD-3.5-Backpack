@@ -6,38 +6,76 @@ const raceSchema = new mongoose.Schema(
             type: String,
             required: true
         },
+        helpText: {
+            type: String,
+            default: null
+        },
         levelMod: {
             type: Number,
-            required: true
+            default: null
+        },
+        size: {
+            type: String,
+            default: null
+        },
+        speed: {
+            type: Number,
+            default: null
         },
         source: {
-            type: Array,
-            required: true
+            book: {
+                type: String,
+                default: null
+            },
+            page: {
+                type: Number,
+                default: null
+            }
         },
-        str: {
+        skillPointModifier: {
             type: Number,
-            required: true
+            default: null
         },
-        con: {
-            type: Number,
-            required: true
+        statBonuses: {
+            con: {
+                type: Number,
+                default: null
+            },
+            str: {
+                type: Number,
+                default: null
+            },
+            dex: {
+                type: Number,
+                default: null
+            },
+            wis: {
+                type: Number,
+                default: null
+            },
+            int: {
+                type: Number,
+                default: null
+            },
+            cha: {
+                type: Number,
+                default: null
+            },
         },
-        dex: {
-            type: Number,
-            required: true
-        },
-        wis: {
-            type: Number,
-            required: true
-        },
-        int: {
-            type: Number,
-            required: true
-        },
-        cha: {
-            type: Number,
-            required: true
-        },
+        features: {
+            lv1: [
+                {
+                    name: {
+                        type: String,
+                        default: null
+                    },
+                    text: {
+                        type: String,
+                        default: null
+                    }
+                }
+            ],
+        }
     }
 )
 

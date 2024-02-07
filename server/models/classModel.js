@@ -8,32 +8,88 @@ const classSchema = new mongoose.Schema(
         },
         helpText: {
             type: String,
-            required: true
+            default: null
+        },
+        hitDice: {
+            type: String,
+            default: null
         },
         levelMod: {
             type: Number,
-            required: true
+            default: null
         },
         source: {
-            type: Array,
-            required: true
+            book: {
+                type: String,
+                default: null
+            },
+            page: {
+                type: String,
+                default: null
+            }
         },
-        fort: {
-            type: String,
-            required: true
+        saves: {
+            fort: {
+                type: String,
+                default: null
+            },
+            will: {
+                type: String,
+                default: null
+            },
+            ref: {
+                type: String,
+                default: null
+            },
         },
-        will: {
-            type: String,
-            required: true
-        },
-        ref: {
-            type: String,
-            required: true
+        skillPointModifier: {
+            type: Number,
+            default: null
         },
         skills: {
             type: String,
             required: true
         },
+        statBonuses: {
+            con: {
+                type: Number,
+                default: null
+            },
+            str: {
+                type: Number,
+                default: null
+            },
+            dex: {
+                type: Number,
+                default: null
+            },
+            wis: {
+                type: Number,
+                default: null
+            },
+            int: {
+                type: Number,
+                default: null
+            },
+            cha: {
+                type: Number,
+                default: null
+            },
+        },
+        features: {
+            lv1: [
+                {
+                    name: {
+                        type: String,
+                        default: null
+                    },
+                    text: {
+                        type: String,
+                        default: null
+                    }
+                }
+            ],
+        }
     }
 )
 

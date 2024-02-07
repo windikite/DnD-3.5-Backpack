@@ -148,6 +148,13 @@ async function getCharacterOptions(req, res){
         let classes = await Classes.find();
         let races = await Races.find();
 
+        // if classes.source is an array type,
+        // classes.source = classes.source[0]
+
+        if(typeof classes.source === Array){
+            classes.source = classes.sourcep[0]
+        }
+
         let options = [];
 
         options.push(classes, races);
